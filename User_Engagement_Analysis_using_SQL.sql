@@ -105,7 +105,7 @@ GROUP BY
 
 SELECT
     data(ur.reaction_date) as reaction_day,
-    count(DISTINCT ur.user_id) as distinct_users,
+    COUNT(DISTINCT ur.user_id) AS distinct_users,
     count(*) as total_reactions,
     avg(count(*)) over (PARTITION BY date(ur.reaction_date)) as avg_reations_per_user
 FROM
