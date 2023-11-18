@@ -100,3 +100,17 @@ WHERE
 GROUP BY
     p.post_id, p.post_content;
 
+
+-- Calculating the mean number of reactions, encompassing likes, comments, and shares, per distinct user within a designated time period:
+
+SELECT
+    data(ur.reaction_date) as reaction_day,
+    count(DISTINCT ur.user_id) as distinct_users,
+    count(*) as total_reactions,
+    avg(count(*)) over (PARTITION BY date(ur.reaction_date)) as avg_reations_per_user
+FROM
+    UserReactions ur
+WHERE
+    ur.reaction_date BETWEEN '2023-08-25' AND '2023-08-31'
+GROUP BY
+    reaction_day;
