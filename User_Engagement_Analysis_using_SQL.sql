@@ -104,8 +104,8 @@ GROUP BY
 -- Calculating the mean number of reactions, encompassing likes, comments, and shares, per distinct user within a designated time period:
 
 SELECT
-    data(ur.reaction_date) as reaction_day,
-    COUNT(DISTINCT ur.user_id) AS distinct_users,
+    date(ur.reaction_date) as reaction_day,
+    count(distinct ur.user_id) AS distinct_users,
     count(*) as total_reactions,
     avg(count(*)) over (PARTITION BY date(ur.reaction_date)) as avg_reations_per_user
 FROM
