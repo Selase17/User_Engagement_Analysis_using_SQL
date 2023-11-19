@@ -114,3 +114,25 @@ WHERE
     ur.reaction_date BETWEEN '2023-08-25' AND '2023-08-31'
 GROUP BY
     reaction_day;
+
+
+-- Identifying the three most engaging posts, measured by the aggregate sum of reactions, within the preceding week:
+
+SELECT
+    p.post_id,
+    p.post_content,
+    SUM(CASE WHEN ur.reaction_type = 'like' THEN 1 ELSE 0 END +
+        CASE WHEN ur.reaction_type = 'comment' THEN 1 ELSE 0 END +
+        CASE WHEN ur.reaction_type = 'share' THEN 1 ELSE 0 END) AS total_reactions
+FROM
+    Posts p
+LEFT JOIN
+    UserReactions ur ON p.post_id = ur.post_id
+WHERE
+    ur.reaction_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW()
+GROUP BY
+    p.post_id, p.post_content
+ORDER BY
+    total_reactions DESC
+LIMIT
+    3; -- Retrieve the top 3 most engaging posts
