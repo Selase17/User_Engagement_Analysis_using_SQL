@@ -42,7 +42,7 @@
 -- CREATING THE TABLES FOR THE SQL DATABASE
 
 -- Posts:
-drop table if exists Posts;
+drop table Posts;
 create table Posts(
 post_id int primary key,
 post_content text,
@@ -51,7 +51,7 @@ post_date datetime
 
 -- UserReactions:
 
-drop table if exists UserReactions;
+drop table UserReactions;
 create table UserReactions(
 reaction_id int primary key,
 user_id int,
